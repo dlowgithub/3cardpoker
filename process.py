@@ -109,6 +109,8 @@ def parseInput(username,id,msg):
 		fold(username)
 	elif command == 'play':  
 		play(username)
+	elif command == 'reload':  
+		reload(username)
 	else:
 		print 'invalid' 
 		print command
@@ -135,6 +137,16 @@ def register(username):
 		#print 'registered ' + username
 		message='You are now registered and have been credited 100, to play, please send ante and your bet. Example: ante 1 1'
 	api_return = api.send_direct_message(screen_name=username,text=message)
+
+# Reload if the user is low on funds
+def reload(username):
+
+        if bank[username] < 50:
+        	message='Reloading your account to 50'
+		api_return = api.send_direct_message(screen_name=username,text=message)
+        else:
+        	message="You already have over 50 credits, you don't need charity"
+		api_return = api.send_direct_message(screen_name=username,text=message)
 
 # User is going to play a hand
 def ante (username,msg):
@@ -183,7 +195,7 @@ def ante (username,msg):
 		#print 'invalid bet'
 		#print bank[username]
 		#print neededbank
-		message='Invalid bet, please ante again'
+		message='Invalid bet, please ante again. If you are low on funds, you can send reload for more credits'
 		api_return = api.send_direct_message(screen_name=username,text=message)
 		return
 	
