@@ -154,17 +154,28 @@ def ante (username,msg):
 	# If there are 2 bets, one is an ante and one is pairs plus
 	if msg.count(' ')==2:
 		cmd,pairsplus,ante = msg.split(' ');
-		wager=int(pairsplus) + int(ante)
-		neededbank=int(pairsplus)+(int(ante)*2)
-		#print "Player made a pairs plus bet:" + str(wager)
+		if pairsplus.isdigit() and ante.isdigit():
+			wager=int(pairsplus) + int(ante)
+			neededbank=int(pairsplus)+(int(ante)*2)
+		else:
+			message='This is an invalid bet, please try again'
+			api_return = api.send_direct_message(screen_name=username,text=message)
+			return
 	# If there is 1 bet, there is no pairs plus bet
 	elif msg.count(' ')==1:
 		cmd,ante = msg.split(' ');
-		wager=int(ante)
-		pairsplus=0
-		neededbank=int(ante)*2
+		if ante.isdigit():
+			wager=int(ante)
+			pairsplus=0
+			neededbank=int(ante)*2
+		else:
+			#print 'Invalid bet'
+			message='This is an invalid bet, please try again'
+			api_return = api.send_direct_message(screen_name=username,text=message)
+			return
 	else:
-		print 'Invalid bet'
+		message='Invalid bet, please ante again'
+		api_return = api.send_direct_message(screen_name=username,text=message)
 		return
 
 	# See if the player has enough money
@@ -384,7 +395,7 @@ def play (username):
 # Consumer keys and access tokens, used for OAuth
 f = open('keys', 'r')
 consumer_key,consumer_secret,access_token,access_token_secret=f.read().splitlines()
-print consumer_key
+#print consumer_key
 f.close
  
 # OAuth process, using the keys and tokens
