@@ -319,12 +319,12 @@ def play (username):
 			api.update_status(statusMessage)
 		elif playerBonus == 30:
 			bank[username] = bank[username] + (int(ante) * 4)
-			message=message + ' and an ante bonus of ' + str(ante * 4)
+			message=message + ' and an ante bonus of ' + str(int(ante) * 4)
 			statusMessage='. @' +str(username) + ' just got three of a kind with ' + card1 + ', ' + card2 + ', ' + card3
 			api.update_status(statusMessage)
 		elif playerBonus == 40:
 			bank[username] = bank[username] + (int(ante) * 5)
-			message=message + ' and an ante bonus of ' + str(ante * 5)
+			message=message + ' and an ante bonus of ' + str(int(ante) * 5)
 			statusMessage='. @' +str(username) + ' just got a straight flush with ' + card1 + ', ' + card2 + ', ' + card3
 			api.update_status(statusMessage)
 		message=message + '. '
@@ -378,7 +378,7 @@ def play (username):
 		#print "player wins"
 		bank[username] = bank[username] + (int(ante)*4)
 		#print "paying: " + str ((int(ante)*4))
-		message=message + 'Dealer shows ' + dealerCard1 + ' ' + dealerCard2 + ' ' + dealerCard3 + ' and loses. You win your ante and play bets for a total of ' + str(ante*2)
+		message=message + 'Dealer shows ' + dealerCard1 + ' ' + dealerCard2 + ' ' + dealerCard3 + ' and loses. You win your ante and play bets for a total of ' + str(int(ante)*2)
 	else:
 		message=message + 'Dealer shows ' + dealerCard1 + ' ' + dealerCard2 + ' ' + dealerCard3 + ' and wins'
 		#print "dealer wins"
