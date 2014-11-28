@@ -79,7 +79,7 @@ def evalHand (card1,card2,card3):
 
 		#print "Straight" + card1+card2+card3
 		value = 1000000
-		return(4,truevalue+value)
+		return(5,truevalue+value)
 	# We have nothing
 	else:
 		# See if its a placard3Valueable
@@ -142,8 +142,9 @@ def register(username):
 def reload(username):
 
         if bank[username] < 50:
-        	message='Reloading your account to 50'
+        	message='Reloading your account to 100'
 		api_return = api.send_direct_message(screen_name=username,text=message)
+        	bank[username]=100
         else:
         	message="You already have over 50 credits, you don't need charity"
 		api_return = api.send_direct_message(screen_name=username,text=message)
