@@ -418,9 +418,13 @@ auth.set_access_token(access_token, access_token_secret)
 # Creation of the actual interface, using authentication
 api = tweepy.API(auth)
 
+
+	#if username in bank.keys():
+		## print "User already exists, doing nothing"
+
 # Follow anyone who follows you that you aren't following
 for follower in tweepy.Cursor(api.followers).items():
-   	if (not(follower.following)):
+   	if (not(follower.following)) and (not(username in bank.keys())):
     		follower.follow()
 		username=follower.screen_name
 		message='Thanks for following, to start playing send: register'
